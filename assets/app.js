@@ -6,7 +6,7 @@ const LS_KEY = 'kanban_offline_state_v1';
 const THEME_KEY = 'kanban_theme';
 
 let state = loadState();
-applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+applyTheme(localStorage.getItem(THEME_KEY) || 'light');
 
 const dlg = $('#dlgCard');
 const inpTitle = $('#cardTitle');
