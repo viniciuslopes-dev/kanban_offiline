@@ -249,14 +249,15 @@ function save() {
 function defaultState() {
   return {
     lanes: [
-      { id: uid(), title: 'Backlog', cards: [
-        { id: uid(), title: 'Exemplo: Tela de login', notes: 'UI simples, validação básica', color: '#22d3ee', createdAt: Date.now() }
+      { id: uid(), title: 'A fazer', cards: [
+        { id: uid(), title: 'Pagar contas (luz/água)', notes: 'Vencem até dia 10', color: '#ef4444', createdAt: Date.now() },
+        { id: uid(), title: 'Comprar supermercado', notes: 'Arroz, frango, café, leite', color: '#22d3ee', createdAt: Date.now() }
       ]},
       { id: uid(), title: 'Em Progresso', cards: [
-        { id: uid(), title: 'Exemplo: API de produtos', notes: 'Endpoints: listar, criar, atualizar', color: '#f59e0b', createdAt: Date.now() }
+        { id: uid(), title: 'Curso de Docker', notes: 'Aplicar em projetos reais', color: '#f59e0b', createdAt: Date.now() }
       ]},
       { id: uid(), title: 'Concluído', cards: [
-        { id: uid(), title: 'Exemplo: Ajustar README', notes: 'Badges e GIF de demo', color: '#10b981', createdAt: Date.now() }
+        { id: uid(), title: 'Curso de Git GitHub', notes: 'Criar projeto no GitPages', color: '#10b981', createdAt: Date.now() }
       ]}
     ]
   };
