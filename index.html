@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Kanban Offline</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Kanban Offline</h1>
+    <div class="actions">
+      <button id="btnAddLane" class="btn">+ Coluna</button>
+      <button id="btnExport" class="btn ghost">Exportar JSON</button>
+      <label for="fileImport" class="btn ghost">Importar JSON</label>
+      <input id="fileImport" type="file" accept="application/json" hidden />
+      <button id="btnReset" class="btn ghost">Zerar Board</button>
+      <button id="btnTheme" class="btn ghost" title="Alternar tema">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="board" id="board"></section>
+  </main>
+
+  <footer class="footer">
+    <span>Funciona 100% offline (PWA) • Salva no navegador</span>
+    <a href="https://github.com/" target="_blank" rel="noreferrer">Código-fonte</a>
+  </footer>
+
+  <!-- Dialog de cartão -->
+  <dialog id="dlgCard">
+    <form method="dialog" class="dialog">
+      <h3 id="dlgTitle">Novo cartão</h3>
+      <label>Título
+        <input id="cardTitle" type="text" required />
+      </label>
+      <label>Notas
+        <textarea id="cardNotes" rows="4"></textarea>
+      </label>
+      <label>Cor do cartão
+        <input id="cardColor" type="color" value="#0ea5e9" />
+      </label>
+      <menu>
+        <button id="btnDeleteCard" class="btn danger" type="button">Excluir</button>
+        <div class="spacer"></div>
+        <button class="btn" value="cancel">Cancelar</button>
+        <button id="btnSaveCard" class="btn primary" value="default">Salvar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
