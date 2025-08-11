@@ -176,3 +176,16 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
     word-break: break-word;
   }
 }
+
+/* Mobile em paisagem: libere a rolagem vertical dentro do board */
+@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .board{
+    touch-action: auto !important;          /* permite pan X e Y */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+  /* Mantém cartões responsivos sem travar o scroll */
+  .card{
+    touch-action: manipulation;             /* não bloqueia o pan vertical */
+  }
+}
