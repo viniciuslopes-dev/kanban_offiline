@@ -70,151 +70,38 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
 @media (max-width: 480px) {
   .board { grid-auto-columns: 88vw; }
 }
-
-/* ===== UX geral para touch ===== */
-.topbar {
-  padding-left: calc(16px + env(safe-area-inset-left));
-  padding-right: calc(16px + env(safe-area-inset-right));
-}
-.container, .footer {
-  padding-left: calc(14px + env(safe-area-inset-left));
-  padding-right: calc(14px + env(safe-area-inset-right));
+/* === Controle simples de largura (vale p/ desktop e mobile) === */
+:root {
+  --card-w: 280px;   /* troque aqui: 280/300/340… */
+  --lane-gap: 6px;
 }
 
-.card { 
-  user-select: none; 
-  -webkit-tap-highlight-color: transparent; 
-  touch-action: pan-y; 
-}
-.card-title, .card-notes { 
-  overflow-wrap: anywhere; 
-  word-break: break-word; 
-  hyphens: auto; 
-}
-.btn { min-height: 44px; padding: 10px 14px; }   /* alvo maior para dedo */
-.btn.small { min-height: 36px; }
-
-/* Foco acessível (teclado e leitores) */
-:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-
-/* ===== Mobile padrão ===== */
-@media (max-width: 768px) {
-  .board { 
-    grid-auto-columns: clamp(260px, 88vw, 340px);  /* largura fluida com teto */
-    gap: 10px; 
-    -webkit-overflow-scrolling: touch;
-  }
-  .lane { max-width: 340px; }
-  .card { max-width: 320px; margin: 0 auto; }
-  .card-title { font-size: clamp(14px, 3.8vw, 16px); }
-  .card-notes { font-size: clamp(12px, 3.2vw, 14px); }
-}
-
-/* ===== Celular deitado (altura baixa) ===== */
-@media (orientation: landscape) and (max-height: 480px) {
-  .board { 
-    grid-auto-columns: clamp(240px, 70vw, 320px); 
-    gap: 8px; 
-  }
-  .lane { max-width: 320px; }
-  .card { max-width: 300px; margin: 0 auto; }
-}
-
-/* ===== Somente dispositivos touch (melhor deslizamento entre colunas) ===== */
-@media (hover: none) and (pointer: coarse) {
-  .board { 
-    scroll-snap-type: x proximity;   /* “encaixe” suave ao arrastar lateralmente */
-  }
-  .lane { scroll-snap-align: start; }
-}
-
-/* ===== Travar largura no mobile em paisagem ===== */
-/* Só em dispositivos touch + paisagem */
-@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
-  :root { --lane-w: 260px; --lane-gap: 10px; }   /* ajuste fino aqui (ex.: 280/300/320) */
-
-  .board {
-    grid-auto-columns: var(--lane-w) !important;  /* cada coluna com largura fixa */
-    gap: var(--lane-gap) !important;
-  }
-  .lane {
-    width: var(--lane-w) !important;
-    max-width: var(--lane-w) !important;
-  }
-  .card {
-    max-width: calc(var(--lane-w) - 20px) !important;
-    margin: 0 auto;
-  }
-
-  /* Evita alongar por texto grande */
-  .card-title, .card-notes {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  /* Botões com alvo confortável sem “crescer” a coluna */
-  .btn { min-height: 40px; }
-}
-
-/* Paisagem com altura muito baixa: use largura menor */
-@media (orientation: landscape) and (max-height: 420px) and (hover: none) and (pointer: coarse) {
-  :root { --lane-w: 260px; --lane-gap: 8px; }
-}
-
-/* ===== Largura global dos cards (controle único) ===== */
-:root { --card-w: 280px; }            /* ajuste aqui: 280, 300, 340 etc. */
-
-/* cada coluna acompanha a largura do card + folga do layout */
 .board {
-  grid-auto-columns: calc(var(--card-w) + 24px) !important;
-  gap: 12px;
+  grid-auto-columns: calc(var(--card-w) + 24px);
+  gap: var(--lane-gap);
 }
 .lane {
-  width: calc(var(--card-w) + 24px) !important;
-  max-width: calc(var(--card-w) + 24px) !important;
+  width: calc(var(--card-w) + 24px);
+  max-width: calc(var(--card-w) + 24px);
 }
-
-/* o card não passa de --card-w, mas encolhe se a coluna for menor */
 .card {
   width: min(100%, var(--card-w));
   max-width: var(--card-w);
   margin: 0 auto;
 }
+.card-title, .card-notes { overflow-wrap: anywhere; word-break: break-word; }
 
-/* evita “alargar” por palavras grandes */
-.card-title, .card-notes {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-/* ==== Fix: alinhar "+ Card" e "Remover" dentro da coluna ==== */
-.lane-header{
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto; /* título ocupa o espaço, ações ficam à direita */
+/* Header da coluna: ações não “saltam” para fora */
+.lane-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 8px;
 }
+.lane-title { width: 100%; min-width: 0; }
+.lane-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
-.lane-title{
-  width: 100%;
-  min-width: 0;               /* evita estourar o grid */
-}
-
-.lane-actions{
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;            /* se faltar espaço, quebra para a linha de baixo */
-  justify-content: flex-end;  /* mantém à direita */
-  align-items: center;
-}
-
-.lane-actions .btn{
-  white-space: nowrap;        /* não quebra o texto do botão */
-  min-height: 36px;
-  padding: 6px 10px;
-}
-
-/* Em larguras bem pequenas, compacte um pouco mais os botões */
-@media (max-width: 360px), (orientation: landscape) and (max-height: 420px){
-  .lane-actions .btn{ padding: 5px 8px; font-size: 12px; }
+/* Mobile em paisagem: só reduz o tamanho-alvo */
+@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  :root { --card-w: 280px; --lane-gap: 10px; }  /* ajuste fino p/ celular deitado */
 }
