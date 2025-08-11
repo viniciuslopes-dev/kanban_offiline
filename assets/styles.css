@@ -67,20 +67,63 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
 .dialog menu { display: flex; gap: 8px; align-items: center; margin: 8px 0 0; padding: 0; }
 .dialog .spacer { flex: 1; }
 
-@media (max-width: 900px) {
+@media (max-width: 480px) {
   .board { grid-auto-columns: 88vw; }
 }
 
-/* Celular deitado (altura baixa) */
-@media (orientation: landscape) and (max-height: 480px) {
-  .board { grid-auto-columns: minmax(200px, 260px); gap: 8px; }
-  .lane { max-width: 260px; }
-  .card { max-width: 240px; margin: 0 auto; }
+/* ===== UX geral para touch ===== */
+.topbar {
+  padding-left: calc(16px + env(safe-area-inset-left));
+  padding-right: calc(16px + env(safe-area-inset-right));
+}
+.container, .footer {
+  padding-left: calc(14px + env(safe-area-inset-left));
+  padding-right: calc(14px + env(safe-area-inset-right));
 }
 
-/* Limite de largura para mobile (touch) e telas com pouca altura */
-@media (hover: none) and (pointer: coarse), (max-height: 480px) {
-  .board { grid-auto-columns: minmax(200px, 280px); gap: 8px; }
-  .lane  { max-width: 280px; }
-  .card  { max-width: 260px; margin: 0 auto; }
+.card { 
+  user-select: none; 
+  -webkit-tap-highlight-color: transparent; 
+  touch-action: pan-y; 
+}
+.card-title, .card-notes { 
+  overflow-wrap: anywhere; 
+  word-break: break-word; 
+  hyphens: auto; 
+}
+.btn { min-height: 44px; padding: 10px 14px; }   /* alvo maior para dedo */
+.btn.small { min-height: 36px; }
+
+/* Foco acessível (teclado e leitores) */
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ===== Mobile padrão ===== */
+@media (max-width: 768px) {
+  .board { 
+    grid-auto-columns: clamp(260px, 88vw, 340px);  /* largura fluida com teto */
+    gap: 10px; 
+    -webkit-overflow-scrolling: touch;
+  }
+  .lane { max-width: 340px; }
+  .card { max-width: 320px; margin: 0 auto; }
+  .card-title { font-size: clamp(14px, 3.8vw, 16px); }
+  .card-notes { font-size: clamp(12px, 3.2vw, 14px); }
+}
+
+/* ===== Celular deitado (altura baixa) ===== */
+@media (orientation: landscape) and (max-height: 480px) {
+  .board { 
+    grid-auto-columns: clamp(240px, 70vw, 320px); 
+    gap: 8px; 
+  }
+  .lane { max-width: 320px; }
+  .card { max-width: 300px; margin: 0 auto; }
+}
+
+/* ===== Somente dispositivos touch (melhor deslizamento entre colunas) ===== */
+@media (hover: none) and (pointer: coarse) {
+  .board { 
+    scroll-snap-type: x proximity;   /* “encaixe” suave ao arrastar lateralmente */
+  }
+  .lane { scroll-snap-align: start; }
 }
