@@ -31,11 +31,11 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); f
 
 .container { max-width: 1200px; margin: 18px auto; padding: 0 14px; }
 
-.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(280px, 1fr); gap: 12px; align-items: start; overflow-x: auto; padding-bottom: 12px; }
+.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(280px, 380px); gap: 12px; align-items: start; overflow-x: auto; padding-bottom: 12px; }
 .lane { background: var(--lane); border: 1px solid var(--border); border-radius: 14px; padding: 12px; box-shadow: var(--shadow); min-height: 160px; }
 .lane-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
 .lane-title { font-weight: 700; font-size: 14px; padding: 6px 8px; border-radius: 8px; outline: none; border: 1px solid transparent; }
-.lane-title:focus { border-color: var(--primary); background: rgba(255,255,255,.02); }
+.lane-title:focus { border-color: var(--primary); background: rgba(52, 31, 31, 0.02); }
 .lane-actions { display: flex; gap: 6px; }
 .btn { border: 1px solid var(--border); background: var(--card); color: var(--text); padding: 8px 10px; border-radius: 10px; cursor: pointer; }
 .btn:hover { border-color: var(--primary); }
@@ -78,9 +78,9 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
   .card { max-width: 320px; margin: 0 auto; }
 }
 
-/* Apenas dispositivos touch (celular/tablet), qualquer orientação  */
-@media (hover: none) and (pointer: coarse) {
-  .board { grid-auto-columns: minmax(260px, 380px); }
-  .lane { max-width: 380px; }
-  .card { max-width: 360px; margin: 0 auto; }
+/* Limite de largura para mobile (touch) e telas com pouca altura */
+@media (hover: none) and (pointer: coarse), (max-height: 480px) {
+  .board { grid-auto-columns: minmax(260px, 360px); gap: 10px; }
+  .lane  { max-width: 360px; }
+  .card  { max-width: 340px; margin: 0 auto; } /* centraliza o card na coluna */
 }
