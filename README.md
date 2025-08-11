@@ -18,8 +18,8 @@ Quadro Kanban minimalista, salva no `localStorage`, funciona offline (PWA) e sup
 - **Exportar JSON** salva um backup; **Importar JSON** restaura o board.
 - **Zerar Board** apaga o estado salvo.
 
-## Contribua
-## Sinta-se à vontade para abrir *issues*, sugerir melhorias e enviar *pull requests*.
+
+#### Sinta-se à vontade para abrir *issues*, sugerir melhorias e enviar *pull requests*.
 
 Bom uso! 🚀
 Se este projeto foi útil para você, deixe uma estrela :)
