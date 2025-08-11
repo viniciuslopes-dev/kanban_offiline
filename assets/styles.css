@@ -127,3 +127,36 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
   }
   .lane { scroll-snap-align: start; }
 }
+
+/* ===== Travar largura no mobile em paisagem ===== */
+/* Só em dispositivos touch + paisagem */
+@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  :root { --lane-w: 300px; --lane-gap: 10px; }   /* ajuste fino aqui (ex.: 280/300/320) */
+
+  .board {
+    grid-auto-columns: var(--lane-w) !important;  /* cada coluna com largura fixa */
+    gap: var(--lane-gap) !important;
+  }
+  .lane {
+    width: var(--lane-w) !important;
+    max-width: var(--lane-w) !important;
+  }
+  .card {
+    max-width: calc(var(--lane-w) - 20px) !important;
+    margin: 0 auto;
+  }
+
+  /* Evita alongar por texto grande */
+  .card-title, .card-notes {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* Botões com alvo confortável sem “crescer” a coluna */
+  .btn { min-height: 40px; }
+}
+
+/* Paisagem com altura muito baixa: use largura menor */
+@media (orientation: landscape) and (max-height: 420px) and (hover: none) and (pointer: coarse) {
+  :root { --lane-w: 260px; --lane-gap: 8px; }
+}
