@@ -10,14 +10,6 @@ Quadro Kanban minimalista, salva no `localStorage`, funciona offline (PWA) e sup
 - Tema claro/escuro (persistente)
 - PWA com Service Worker e manifest (offline)
 
-## Como publicar no GitHub Pages
-1. Crie um repositório público chamado **kanban-offline** (ou outro nome).
-2. Envie estes arquivos para a raiz do repositório.
-3. Em **Settings → Pages**, defina **Deploy from a branch**, `main` e `/`.
-4. Acesse a URL exibida em **Pages**.
-
-> Observação: Caminhos relativos garantem que o *service worker* funcione em subpastas (`https://usuario.github.io/repositorio`).
-
 ## Uso rápido
 - Clique em **+ Coluna** para criar novas colunas.
 - Clique no título da coluna para renomeá-la.
@@ -26,4 +18,8 @@ Quadro Kanban minimalista, salva no `localStorage`, funciona offline (PWA) e sup
 - **Exportar JSON** salva um backup; **Importar JSON** restaura o board.
 - **Zerar Board** apaga o estado salvo.
 
+## Contribua
+## Sinta-se à vontade para abrir *issues*, sugerir melhorias e enviar *pull requests*.
+
 Bom uso! 🚀
+Se este projeto foi útil para você, deixe uma estrela :)
