@@ -124,3 +124,55 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
   margin-inline: 0;         /* sem margem automática */
   justify-content: start;   /* colunas começam do lado esquerdo */
 }
+
+/* 1) Mobile/touch: garanta que dá para alcançar a primeira e a última coluna */
+@media (hover: none) and (pointer: coarse) {
+  .board{
+    padding: 0 12px 12px 12px;   /* espaço nas bordas da área rolável */
+    scroll-padding-inline: 12px; /* se houver scroll-snap, alinha no padding */
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;         /* prioriza arrasto horizontal */
+  }
+  .lane{ 
+    scroll-margin-inline: 12px;  /* faz a coluna “encaixar” na borda visível */
+  }
+}
+
+/* 2) Se ainda “travar”, desligue o snap no touch */
+@media (hover: none) and (pointer: coarse) {
+  .board{ scroll-snap-type: none !important; }
+  .lane{  scroll-snap-align: none !important; }
+}
+
+@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  :root { --lane-w: 300px; --lane-gap: 10px; }
+  .board { grid-auto-columns: var(--lane-w) !important; gap: var(--lane-gap) !important; }
+  .lane  { width: var(--lane-w) !important; max-width: var(--lane-w) !important; }
+  .card  { max-width: calc(var(--lane-w) - 20px) !important; margin: 0 auto; }
+}
+
+/* Desktop (mouse/teclado): centraliza os cards e desfaz limites móveis */
+@media (hover: hover) and (pointer: fine) {
+  .board { 
+    grid-auto-columns: minmax(320px, 1fr);  /* colunas elásticas no desktop */
+    gap: 12px;
+    padding: 0;                              /* sem padding extra do touch */
+    scroll-snap-type: none;                  /* garante que não há snap no desktop */
+  }
+  .lane {
+    width: auto !important;
+    max-width: none !important;              /* remove teto que usamos no mobile */
+  }
+  .cards {
+    justify-items: center;                   /* centraliza itens do grid */
+  }
+  .card {
+    width: 100%;
+    max-width: 680px;                        /* largura confortável no desktop */
+    margin: 0;                               /* grid já centraliza */
+  }
+  .card-title, .card-notes {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
