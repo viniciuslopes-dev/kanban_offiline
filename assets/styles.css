@@ -78,7 +78,7 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
   .card { max-width: 320px; margin: 0 auto; }
 }
 
-/* Apenas dispositivos touch (celular/tablet), qualquer orientação */
+/* Apenas dispositivos touch (celular/tablet), qualquer orientação  */
 @media (hover: none) and (pointer: coarse) {
   .board { grid-auto-columns: minmax(260px, 380px); }
   .lane { max-width: 380px; }
