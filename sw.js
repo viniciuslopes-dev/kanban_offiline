@@ -1,5 +1,5 @@
 // Service Worker para PWA offline
-const CACHE = 'kanban-offline-v3';
+const CACHE = 'kanban-offline-v4';
 const ASSETS = [
   './',
   './index.html',

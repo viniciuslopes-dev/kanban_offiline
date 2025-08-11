@@ -29,7 +29,7 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); f
 .topbar h1 { margin: 0; font-size: 18px; letter-spacing: .3px; }
 .actions { display: flex; gap: 8px; align-items: center; }
 
-.container { max-width: 1200px; margin: 18px auto; padding: 0 14px; }
+.container { max-width: 1200px; margin: 9px auto; padding: 0 7px; }
 
 .board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(280px, 380px); gap: 12px; align-items: start; overflow-x: auto; padding-bottom: 12px; }
 .lane { background: var(--lane); border: 1px solid var(--border); border-radius: 14px; padding: 12px; box-shadow: var(--shadow); min-height: 160px; }
@@ -131,7 +131,7 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
 /* ===== Travar largura no mobile em paisagem ===== */
 /* Só em dispositivos touch + paisagem */
 @media (orientation: landscape) and (hover: none) and (pointer: coarse) {
-  :root { --lane-w: 300px; --lane-gap: 10px; }   /* ajuste fino aqui (ex.: 280/300/320) */
+  :root { --lane-w: 260px; --lane-gap: 10px; }   /* ajuste fino aqui (ex.: 280/300/320) */
 
   .board {
     grid-auto-columns: var(--lane-w) !important;  /* cada coluna com largura fixa */
@@ -159,4 +159,62 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
 /* Paisagem com altura muito baixa: use largura menor */
 @media (orientation: landscape) and (max-height: 420px) and (hover: none) and (pointer: coarse) {
   :root { --lane-w: 260px; --lane-gap: 8px; }
+}
+
+/* ===== Largura global dos cards (controle único) ===== */
+:root { --card-w: 280px; }            /* ajuste aqui: 280, 300, 340 etc. */
+
+/* cada coluna acompanha a largura do card + folga do layout */
+.board {
+  grid-auto-columns: calc(var(--card-w) + 24px) !important;
+  gap: 12px;
+}
+.lane {
+  width: calc(var(--card-w) + 24px) !important;
+  max-width: calc(var(--card-w) + 24px) !important;
+}
+
+/* o card não passa de --card-w, mas encolhe se a coluna for menor */
+.card {
+  width: min(100%, var(--card-w));
+  max-width: var(--card-w);
+  margin: 0 auto;
+}
+
+/* evita “alargar” por palavras grandes */
+.card-title, .card-notes {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ==== Fix: alinhar "+ Card" e "Remover" dentro da coluna ==== */
+.lane-header{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto; /* título ocupa o espaço, ações ficam à direita */
+  align-items: center;
+  gap: 8px;
+}
+
+.lane-title{
+  width: 100%;
+  min-width: 0;               /* evita estourar o grid */
+}
+
+.lane-actions{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;            /* se faltar espaço, quebra para a linha de baixo */
+  justify-content: flex-end;  /* mantém à direita */
+  align-items: center;
+}
+
+.lane-actions .btn{
+  white-space: nowrap;        /* não quebra o texto do botão */
+  min-height: 36px;
+  padding: 6px 10px;
+}
+
+/* Em larguras bem pequenas, compacte um pouco mais os botões */
+@media (max-width: 360px), (orientation: landscape) and (max-height: 420px){
+  .lane-actions .btn{ padding: 5px 8px; font-size: 12px; }
 }
