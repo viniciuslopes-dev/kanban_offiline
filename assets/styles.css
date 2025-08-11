@@ -116,3 +116,11 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
   margin-inline: auto;            /* centraliza quando sobrar espaço */
   justify-content: center;        /* distribui o espaço restante nas laterais */
 }
+
+/* reset da centralização para não travar o início do scroll */
+.container { display: block; }
+.board {
+  width: auto;              /* volta ao fluxo normal */
+  margin-inline: 0;         /* sem margem automática */
+  justify-content: start;   /* colunas começam do lado esquerdo */
+}
