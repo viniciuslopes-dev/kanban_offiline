@@ -105,3 +105,14 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
 @media (orientation: landscape) and (hover: none) and (pointer: coarse) {
   :root { --card-w: 280px; --lane-gap: 10px; }  /* ajuste fino p/ celular deitado */
 }
+
+/* Centralizar as colunas dentro da página */
+.container { 
+  display: flex;              /* permite centralizar o filho */
+}
+
+.board {
+  width: min(100%, max-content);  /* encolhe até o tamanho das colunas */
+  margin-inline: auto;            /* centraliza quando sobrar espaço */
+  justify-content: center;        /* distribui o espaço restante nas laterais */
+}
