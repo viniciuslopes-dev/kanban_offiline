@@ -73,14 +73,14 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
 
 /* Celular deitado (altura baixa) */
 @media (orientation: landscape) and (max-height: 480px) {
-  .board { grid-auto-columns: minmax(260px, 340px); gap: 10px; }
-  .lane { max-width: 340px; }
-  .card { max-width: 320px; margin: 0 auto; }
+  .board { grid-auto-columns: minmax(200px, 260px); gap: 8px; }
+  .lane { max-width: 260px; }
+  .card { max-width: 240px; margin: 0 auto; }
 }
 
 /* Limite de largura para mobile (touch) e telas com pouca altura */
 @media (hover: none) and (pointer: coarse), (max-height: 480px) {
-  .board { grid-auto-columns: minmax(260px, 360px); gap: 10px; }
-  .lane  { max-width: 360px; }
-  .card  { max-width: 340px; margin: 0 auto; } /* centraliza o card na coluna */
+  .board { grid-auto-columns: minmax(200px, 280px); gap: 8px; }
+  .lane  { max-width: 280px; }
+  .card  { max-width: 260px; margin: 0 auto; }
 }
