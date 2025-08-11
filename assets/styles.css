@@ -70,3 +70,17 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
 @media (max-width: 900px) {
   .board { grid-auto-columns: 88vw; }
 }
+
+/* Celular deitado (altura baixa) */
+@media (orientation: landscape) and (max-height: 480px) {
+  .board { grid-auto-columns: minmax(260px, 340px); gap: 10px; }
+  .lane { max-width: 340px; }
+  .card { max-width: 320px; margin: 0 auto; }
+}
+
+/* Apenas dispositivos touch (celular/tablet), qualquer orientação */
+@media (hover: none) and (pointer: coarse) {
+  .board { grid-auto-columns: minmax(260px, 380px); }
+  .lane { max-width: 380px; }
+  .card { max-width: 360px; margin: 0 auto; }
+}
