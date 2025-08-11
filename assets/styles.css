@@ -189,3 +189,30 @@ dialog::backdrop { background: rgba(0,0,0,.35); }
     touch-action: manipulation;             /* não bloqueia o pan vertical */
   }
 }
+
+
+/* ===== Mobile/touch: rolagem livre e bordas com "berço" ===== */
+@media (hover: none) and (pointer: coarse) {
+  .board{
+    padding: 0 12px 12px;
+    scroll-padding-inline: 12px;
+    -webkit-overflow-scrolling: touch;
+    /* IMPORTANTE: não limite o gesto a pan-x e não bloqueie o y */
+    touch-action: auto !important;
+    overscroll-behavior: auto !important;
+  }
+  .lane{ scroll-margin-inline: 12px; }
+  /* Os cards continuam clicáveis sem bloquear scroll vertical */
+  .card{ touch-action: auto !important; }
+}
+
+/* ===== Mobile em paisagem: largura travada sem afetar o scroll ===== */
+@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  :root { --lane-w: 300px; --lane-gap: 10px; } /* ajuste fino: 260/280/300/320 */
+  .board { 
+    grid-auto-columns: var(--lane-w) !important;
+    gap: var(--lane-gap) !important;
+  }
+  .lane  { width: var(--lane-w) !important; max-width: var(--lane-w) !important; }
+  .card  { max-width: calc(var(--lane-w) - 20px) !important; margin: 0 auto; }
+}
